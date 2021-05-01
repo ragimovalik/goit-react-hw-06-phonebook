@@ -1,6 +1,29 @@
 import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+/*
+  componentDidMount() {
+    const storedData = localStorage.getItem('al-phonebook');
+    const parsedData = JSON.parse(storedData);
+
+    parsedData?.length >= 1 && this.props.getSavedContacts(parsedData);
+  }
+
+  componentDidUpdate() {
+    if (this.props.contacts)
+      localStorage.setItem('al-phonebook', JSON.stringify(this.props.contacts));
+  }
+
+//----------------------------------------------------------
+  const localStorageChecher = () => {
+  const storedData = localStorage.getItem('al-phonebook');
+  const parsedData = JSON.parse(storedData);
+
+  return parsedData?.length >= 1 && getSavedContacts(parsedData);
+};
+
+*/
+
 //Store Design
 const initialStore = {
   contacts: {
@@ -21,10 +44,16 @@ console.log(initialStore);
 const ADD_CONTACT = 'contacts/addContact';
 const DELETE_CONTACT = 'contacts/deleteContact';
 const FILTER_CONTACT = 'contacts/filterContacts';
+const GET_SAVED_CONTACTS = 'contacts/getSavedContacts';
 
 export const addContact = newContact => ({
   type: ADD_CONTACT,
   payload: newContact,
+});
+
+export const getSavedContacts = (contacts = []) => ({
+  type: GET_SAVED_CONTACTS,
+  payload: contacts,
 });
 
 export const deleteContact = id => ({
@@ -46,6 +75,9 @@ const contactReducer = (
   switch (type) {
     case ADD_CONTACT:
       return [...state, payload];
+
+    case GET_SAVED_CONTACTS:
+      return [...state, ...payload];
 
     case DELETE_CONTACT:
       return state.filter(contact => contact.id !== payload);

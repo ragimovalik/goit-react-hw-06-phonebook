@@ -1,94 +1,97 @@
-import React, { Component } from 'react';
-import InputBox from '../InputBox/InputBox';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from '../../redux/slice';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addContact } from '../../redux/store';
+import InputBox from '../InputBox/InputBox';
 import styles from './Form.module.css';
 
-class Form extends Component {
-  state = { name: '', number: '' };
+const Form = () => {
+  const [localState, setLocalState] = useState({ name: '', number: '' });
+  const contacts = useSelector(state => state.contacts.items);
+  const dispatch = useDispatch();
 
-  setDefaultState = () =>
-    this.setState({
+  const setDefault = () =>
+    setLocalState({
       name: '',
       number: '',
     });
 
-  onChange = ({ target: { name, value } }) => {
-    this.setState({
+  const onInputChange = ({ target: { name, value } }) => {
+    return setLocalState(prevState => ({
+      ...prevState,
       [name]: value,
-    });
+    }));
   };
 
-  contactsChecker = name => {
-    // const { contacts } = this.state;
-
-    return this.props.contacts.find(contact =>
+  const contactsChecker = name => {
+    return contacts?.find(contact =>
       contact.name.toLowerCase().includes(name.toLowerCase()),
     );
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    const { name, number } = this.state;
+    const { name, number } = localState;
 
     const idSetter = `id-${Math.ceil(Math.random() * 100000)}`;
+
     const newContact = { id: idSetter, name, number };
 
-    this.contactsChecker(name)
+    contactsChecker(name)
       ? alert(`${name} is already in contacts`)
-      : this.props.onSubmit(newContact);
+      : dispatch(addContact(newContact));
 
-    this.setDefaultState();
+    setDefault();
   };
 
-  render() {
-    return (
-      <form className={styles.Form} onSubmit={this.handleSubmit}>
-        <InputBox
-          labelText={'Name'}
-          htmlFor={'name'}
-          type={'text'}
-          id={'name'}
-          name={'name'}
-          title={
-            "Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-          }
-          pattern={'text'}
-          placeholder={'Name'}
-          required={true}
-          value={this.state.name}
-          onChange={this.onChange}
-        />
+  return (
+    <form className={styles.Form} onSubmit={handleSubmit}>
+      <InputBox
+        labelText={'Name'}
+        htmlFor={'name'}
+        type={'text'}
+        id={'name'}
+        name={'name'}
+        title={
+          "Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+        }
+        pattern={'text'}
+        placeholder={'Name'}
+        required={true}
+        value={localState.name}
+        onChange={onInputChange}
+      />
 
-        <InputBox
-          labelText={'Phone number'}
-          htmlFor={'tel'}
-          type={'tel'}
-          id={'tel'}
-          name={'number'}
-          title={
-            'Номер телефона должен состоять из 11-12 цифр и может содержать цифры, точки, пузатые скобки и может начинаться с +'
-          }
-          pattern={'phone'}
-          placeholder={'Phone Number'}
-          required={true}
-          value={this.state.number}
-          onChange={this.onChange}
-        />
-        <button className={styles.Form__btn} type="submit">
-          Submit
-        </button>
-      </form>
-    );
-  }
-}
-
-Form.propTypes = {
-  onSubmitData: PropTypes.func.isRequired,
+      <InputBox
+        labelText={'Phone number'}
+        htmlFor={'tel'}
+        type={'tel'}
+        id={'tel'}
+        name={'number'}
+        title={
+          'Номер телефона должен состоять из 11-12 цифр и может содержать цифры, точки, пузатые скобки и может начинаться с +'
+        }
+        pattern={'phone'}
+        placeholder={'Phone Number'}
+        required={true}
+        value={localState.number}
+        onChange={onInputChange}
+      />
+      <button className={styles.Form__btn} type="submit">
+        Submit
+      </button>
+    </form>
+  );
 };
 
+Form.propTypes = {
+  onSubmitData: PropTypes.func,
+};
+
+export default Form;
+
+/*
 const mapStateToProps = state => ({
   contacts: state.contactReducer,
 });
@@ -98,3 +101,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
+*/

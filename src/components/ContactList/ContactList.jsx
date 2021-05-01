@@ -1,63 +1,71 @@
-import PropTypes from 'prop-types';
-import styles from './ContactList.module.css';
-import { MdDelete } from 'react-icons/md';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/slice';
+// import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
-import { connect } from 'react-redux';
-import { deleteContact } from '../../redux/store';
+import { MdDelete } from 'react-icons/md';
+import styles from './ContactList.module.css';
 
-const ContactList = ({ contacts, onClick }) => (
-  <div className={styles.ContactList}>
-    <h3 className={styles.ContactList__title}>Contact List</h3>
-    <ul>
-      {contacts.map(contact => {
-        return (
-          <li key={contact.id} className={styles.ContactList__item}>
-            <p className={styles.ContactList__name}>{contact.name}</p>
-            <p className={styles.ContactList__phone}>{contact.number}</p>
+const ContactList = () => {
+  const contacts = useSelector(state => state.contacts.items);
+  const filter = useSelector(state => state.contacts.filter);
+  const dispatch = useDispatch();
 
-            <IconContext.Provider
-              value={{
-                color: 'inherit',
-                size: '1.2rem',
-                className: 'global-class-name',
-                title: 'delete',
-              }}
-            >
-              <div onClick={() => onClick(contact.id)}>
-                <MdDelete className={styles.ContactList__icon} />
-              </div>
-            </IconContext.Provider>
-          </li>
-        );
-      })}
-    </ul>
-  </div>
-);
+  const filterContacts = (contacts, filter) => {
+    const normalizedText = filter.toLowerCase();
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.number.string,
-    }),
-  ).isRequired,
-};
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedText),
+    );
+  };
 
-const filteredContacts = (contacts, filter) => {
-  const normalizedText = filter.toLowerCase();
+  const filteredContacts = filterContacts(contacts, filter);
 
-  return contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedText),
+  return (
+    <div className={styles.ContactList}>
+      <h3 className={styles.ContactList__title}>Contact List</h3>
+      <ul>
+        {filteredContacts.map(contact => {
+          return (
+            <li key={contact.id} className={styles.ContactList__item}>
+              <p className={styles.ContactList__name}>{contact.name}</p>
+              <p className={styles.ContactList__phone}>{contact.number}</p>
+
+              <IconContext.Provider
+                value={{
+                  color: 'inherit',
+                  size: '1.2rem',
+                  className: 'global-class-name',
+                  title: 'delete',
+                }}
+              >
+                <div onClick={() => dispatch(deleteContact(contact.id))}>
+                  <MdDelete className={styles.ContactList__icon} />
+                </div>
+              </IconContext.Provider>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 
-const mapStateToProps = state => ({
-  contacts: filteredContacts(state.contactReducer, state.filterContactsReducer),
-});
+// ContactList.propTypes = {
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.number.string,
+//     }),
+//   ).isRequired,
+// };
 
-const mapDispatchToProps = dispatch => ({
-  onClick: id => dispatch(deleteContact(id)),
-});
+// const mapStateToProps = state => ({
+//   contacts: filteredContacts(state.contactReducer, state.filterContactsReducer),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+// const mapDispatchToProps = dispatch => ({
+//   onClick: id => dispatch(deleteContact(id)),
+// });
+
+export default ContactList;

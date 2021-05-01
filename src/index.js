@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import store from './redux/store-toolkit';
 import App from './App.js';
 import './index.css';
 import 'modern-normalize';
-
-console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>
