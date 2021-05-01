@@ -18,8 +18,6 @@ const contactsSlice = createSlice({
       items: [...state.items, action.payload],
     }),
 
-    getSavedContacts: (state, action) => [...state, ...action.payload],
-
     deleteContact: (state, action) =>
       state.items.filter(contact => contact.id !== action.payload),
 
