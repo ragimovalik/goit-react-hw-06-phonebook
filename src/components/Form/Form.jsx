@@ -7,7 +7,7 @@ import styles from './Form.module.css';
 
 const Form = () => {
   const [localState, setLocalState] = useState({ name: '', number: '' });
-  const contacts = useSelector(state => state.contacts.items);
+  const { items } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
 
   const setDefault = () =>
@@ -24,7 +24,7 @@ const Form = () => {
   };
 
   const contactsChecker = name => {
-    return contacts?.find(contact =>
+    return items?.find(contact =>
       contact.name.toLowerCase().includes(name.toLowerCase()),
     );
   };

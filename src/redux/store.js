@@ -1,38 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-/*
-  componentDidMount() {
-    const storedData = localStorage.getItem('al-phonebook');
-    const parsedData = JSON.parse(storedData);
-
-    parsedData?.length >= 1 && this.props.getSavedContacts(parsedData);
-  }
-
-  componentDidUpdate() {
-    if (this.props.contacts)
-      localStorage.setItem('al-phonebook', JSON.stringify(this.props.contacts));
-  }
-
-//----------------------------------------------------------
-  const localStorageChecher = () => {
-  const storedData = localStorage.getItem('al-phonebook');
-  const parsedData = JSON.parse(storedData);
-
-  return parsedData?.length >= 1 && getSavedContacts(parsedData);
-};
-
-*/
-
 //Store Design
 const initialStore = {
   contacts: {
-    items: [
-      // { id: 'id-12345', name: 'Daniel Defoe', number: '987-6541210' },
-      // { id: 'id-54321', name: 'Jonathan Swift', number: '987-6542210' },
-      // { id: 'id-98765', name: 'Robert Stevenson', number: '987-6543210' },
-      // { id: 'id-56789', name: 'Lewis Carroll', number: '987-6544210' },
-    ],
+    items: [],
     filter: '',
   },
 };

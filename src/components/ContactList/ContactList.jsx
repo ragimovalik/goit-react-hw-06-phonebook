@@ -6,19 +6,19 @@ import { MdDelete } from 'react-icons/md';
 import styles from './ContactList.module.css';
 
 const ContactList = () => {
-  const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.contacts.filter);
+  const contacts = useSelector(state => state.contacts);
+  const { items, filter } = contacts;
   const dispatch = useDispatch();
 
-  const filterContacts = (contacts, filter) => {
+  const filterContacts = (items, filter) => {
     const normalizedText = filter.toLowerCase();
 
-    return contacts.filter(contact =>
+    return items.filter(contact =>
       contact.name.toLowerCase().includes(normalizedText),
     );
   };
 
-  const filteredContacts = filterContacts(contacts, filter);
+  const filteredContacts = filterContacts(items, filter);
 
   return (
     <div className={styles.ContactList}>

@@ -5,10 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../../redux/slice';
 
 const Filter = () => {
-  const filter = useSelector(state => state.contacts.filter);
+  const { filter } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
-
-  // const filterSetting = event =>
 
   const filterHandler = event => dispatch(setFilter(event.currentTarget.value));
 
