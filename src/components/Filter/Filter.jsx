@@ -1,11 +1,12 @@
 import InputBox from '../InputBox/InputBox';
-import PropTypes from 'prop-types';
 import styles from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../../redux/slice';
+// import { setFilter } from '../../redux/creators';
 
 const Filter = () => {
   const { filter } = useSelector(state => state.contacts);
+  // const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
   const filterHandler = event => dispatch(setFilter(event.currentTarget.value));
@@ -28,11 +29,6 @@ const Filter = () => {
       />
     </div>
   );
-};
-
-Filter.propTypes = {
-  contacts: PropTypes.array,
-  onChange: PropTypes.func,
 };
 
 export default Filter;

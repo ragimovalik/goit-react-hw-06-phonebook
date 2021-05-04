@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/slice';
-// import PropTypes from 'prop-types';
+// import { deleteContact } from '../../redux/creators';
 import { IconContext } from 'react-icons';
 import { MdDelete } from 'react-icons/md';
 import styles from './ContactList.module.css';
@@ -8,6 +8,10 @@ import styles from './ContactList.module.css';
 const ContactList = () => {
   const contacts = useSelector(state => state.contacts);
   const { items, filter } = contacts;
+
+  // const items = useSelector(state => state.contacts);
+  // const filter = useSelector(state => state.filter);
+
   const dispatch = useDispatch();
 
   const filterContacts = (items, filter) => {
@@ -50,22 +54,15 @@ const ContactList = () => {
   );
 };
 
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       number: PropTypes.number.string,
-//     }),
-//   ).isRequired,
-// };
-
-// const mapStateToProps = state => ({
-//   contacts: filteredContacts(state.contactReducer, state.filterContactsReducer),
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   onClick: id => dispatch(deleteContact(id)),
-// });
-
 export default ContactList;
+
+/*
+const mapStateToProps = state => ({
+  contacts: filteredContacts(state.contactReducer, state.filterContactsReducer),
+});
+
+const mapDispatchToProps = dispatch => ({
+  onClick: id => dispatch(deleteContact(id)),
+});
+
+*/

@@ -16,16 +16,10 @@ console.log(initialStore);
 const ADD_CONTACT = 'contacts/addContact';
 const DELETE_CONTACT = 'contacts/deleteContact';
 const FILTER_CONTACT = 'contacts/filterContacts';
-const GET_SAVED_CONTACTS = 'contacts/getSavedContacts';
 
 export const addContact = newContact => ({
   type: ADD_CONTACT,
   payload: newContact,
-});
-
-export const getSavedContacts = (contacts = []) => ({
-  type: GET_SAVED_CONTACTS,
-  payload: contacts,
 });
 
 export const deleteContact = id => ({
@@ -47,9 +41,6 @@ const contactReducer = (
   switch (type) {
     case ADD_CONTACT:
       return [...state, payload];
-
-    case GET_SAVED_CONTACTS:
-      return [...state, ...payload];
 
     case DELETE_CONTACT:
       return state.filter(contact => contact.id !== payload);
