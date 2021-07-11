@@ -14,7 +14,7 @@ const App = () => {
 
   return (
     <>
-      <PageTitle title={'HomeWork #6 (Phonebook) of React'} />
+      <PageTitle title={'HW #6 (Redux / RTK)'} />
       <Form />
       <Filter />
       <ContactList />

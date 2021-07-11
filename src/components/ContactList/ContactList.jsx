@@ -1,8 +1,7 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { deleteContact } from '../../redux/slice';
 // import { deleteContact } from '../../redux/creators';
-import { IconContext } from 'react-icons';
-import { MdDelete } from 'react-icons/md';
+import ContactListItem from '../ContactListItem/ContactListItem';
 import styles from './ContactList.module.css';
 
 const ContactList = () => {
@@ -11,8 +10,6 @@ const ContactList = () => {
 
   // const items = useSelector(state => state.contacts);
   // const filter = useSelector(state => state.filter);
-
-  const dispatch = useDispatch();
 
   const filterContacts = (items, filter) => {
     const normalizedText = filter.toLowerCase();
@@ -28,27 +25,9 @@ const ContactList = () => {
     <div className={styles.ContactList}>
       <h3 className={styles.ContactList__title}>Contact List</h3>
       <ul>
-        {filteredContacts.map(contact => {
-          return (
-            <li key={contact.id} className={styles.ContactList__item}>
-              <p className={styles.ContactList__name}>{contact.name}</p>
-              <p className={styles.ContactList__phone}>{contact.number}</p>
-
-              <IconContext.Provider
-                value={{
-                  color: 'inherit',
-                  size: '1.2rem',
-                  className: 'global-class-name',
-                  title: 'delete',
-                }}
-              >
-                <div onClick={() => dispatch(deleteContact(contact.id))}>
-                  <MdDelete className={styles.ContactList__icon} />
-                </div>
-              </IconContext.Provider>
-            </li>
-          );
-        })}
+        {filteredContacts.map(({ id, name, number }) => (
+          <ContactListItem key={id} id={id} name={name} number={number} />
+        ))}
       </ul>
     </div>
   );
