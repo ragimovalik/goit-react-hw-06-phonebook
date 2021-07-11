@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { deleteContact } from '../../redux/slice';
 // import { deleteContact } from '../../redux/creators';
 import ContactListItem from '../ContactListItem/ContactListItem';
 import styles from './ContactList.module.css';

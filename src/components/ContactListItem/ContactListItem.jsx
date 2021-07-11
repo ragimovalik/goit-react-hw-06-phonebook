@@ -33,7 +33,6 @@ ContactListItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default ContactListItem;
