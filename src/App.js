@@ -28,17 +28,3 @@ const App = () => {
 };
 
 export default App;
-/*
-// Form component
-title
-name
-phone number
-submitButton
-
-//Filter component
-searchingBoxTitle 
-findname
-
-//Contact List component
-ContactListTitle
-*/
