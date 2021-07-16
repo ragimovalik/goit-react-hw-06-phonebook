@@ -1,6 +1,18 @@
 @value colors: '../../colors.css';
 @value bgcPrimary, darkened, text, white from colors;
 
+.Form__wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Form__title {
+  margin-bottom: 10px;
+  color: #252b31;
+}
+
 .Form {
   display: flex;
   flex-direction: column;

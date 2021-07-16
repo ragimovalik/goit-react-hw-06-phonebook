@@ -1,10 +1,11 @@
-import InputBox from '../InputBox/InputBox';
-import styles from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../../redux/slice';
 // import { setFilter } from '../../redux/creators';
+import PropTypes from 'prop-types';
+import InputBox from '../InputBox/InputBox';
+import styles from './Filter.module.css';
 
-const Filter = () => {
+const Filter = ({ boxTitle }) => {
   const { filter } = useSelector(state => state.contacts);
   // const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const Filter = () => {
 
   return (
     <div className={styles.Filter__wrap}>
-      <h3 className={styles.Filter__title}>Search</h3>
+      <h3 className={styles.Filter__title}>{boxTitle}</h3>
 
       <InputBox
         labelText={'Find Name'}
@@ -29,6 +30,10 @@ const Filter = () => {
       />
     </div>
   );
+};
+
+Filter.propTypes = {
+  boxTitle: PropTypes.string.isRequired,
 };
 
 export default Filter;

@@ -6,7 +6,6 @@ export const deleteContact = createAction('contacts/deleteContact');
 export const setFilter = createAction('contacts/setFilter');
 
 //Reducers
-
 const contactsReducer = createReducer([], builder => {
   builder
     .addCase(addContact, (state, { payload }) => [...state, payload])

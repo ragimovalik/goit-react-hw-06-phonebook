@@ -12,7 +12,6 @@ const initialStore = {
 console.log(initialStore);
 
 // Actions - Action Types
-
 const ADD_CONTACT = 'contacts/addContact';
 const DELETE_CONTACT = 'contacts/deleteContact';
 const FILTER_CONTACT = 'contacts/filterContacts';
@@ -33,7 +32,6 @@ export const filterContacts = text => ({
 });
 
 //Reducers
-
 const contactReducer = (
   state = initialStore.contacts.items,
   { type, payload },

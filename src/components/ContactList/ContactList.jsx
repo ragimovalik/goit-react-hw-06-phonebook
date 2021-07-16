@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 // import { deleteContact } from '../../redux/creators';
+import PropTypes from 'prop-types';
 import ContactListItem from '../ContactListItem/ContactListItem';
 import styles from './ContactList.module.css';
 
-const ContactList = () => {
+const ContactList = ({ boxTitle }) => {
   const contacts = useSelector(state => state.contacts);
   const { items, filter } = contacts;
 
@@ -22,7 +23,7 @@ const ContactList = () => {
 
   return (
     <div className={styles.ContactList}>
-      <h3 className={styles.ContactList__title}>Contact List</h3>
+      <h3 className={styles.ContactList__title}>{boxTitle}</h3>
       <ul>
         {filteredContacts.map(({ id, name, number }) => (
           <ContactListItem key={id} id={id} name={name} number={number} />
@@ -30,6 +31,10 @@ const ContactList = () => {
       </ul>
     </div>
   );
+};
+
+ContactList.propTypes = {
+  boxTitle: PropTypes.string.isRequired,
 };
 
 export default ContactList;

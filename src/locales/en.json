@@ -1,0 +1,21 @@
+{
+  "titles": {
+    "formBox": "Add Contact",
+    "filterBox": "Search",
+    "contactsBox": "Contacts"
+  },
+
+  "labels": {
+    "name": "Name",
+    "phoneNumber": "Phone Number",
+    "findName": "Find Name"
+  },
+
+  "placeholders": {
+    "name": "Name",
+    "phoneNumber": "Phone Number",
+    "findName": "Name"
+  },
+
+  "submitButtonLabel": "Submit"
+}
